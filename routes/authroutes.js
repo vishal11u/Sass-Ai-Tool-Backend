@@ -66,7 +66,7 @@ router.post('/login', async (req, res) => {
         await user.save();
 
         // Generate JWT token with user ID and role
-        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
+        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1m' });
 
         // Create notification for login
         const notification = new Notification({
