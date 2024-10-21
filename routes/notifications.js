@@ -23,12 +23,26 @@ router.post('/create', async (req, res) => {
 });
 
 // Get all notifications with unread count
-router.get('/:userId', async (req, res) => {
-    const { userId } = req.params;
+// router.get('/:userId', async (req, res) => {
+//     const { userId } = req.params;
 
+//     try {
+//         const notifications = await Notification.find({ userId }).sort({ createdAt: -1 });
+//         const unreadCount = await Notification.countDocuments({ userId, isRead: false });
+
+//         res.status(200).json({ notifications, unreadCount });
+//     } catch (error) {
+//         res.status(500).json({ message: 'Error fetching notifications', error });
+//     }
+// });
+
+router.get('/admin/all', async (req, res) => {
     try {
-        const notifications = await Notification.find({ userId }).sort({ createdAt: -1 });
-        const unreadCount = await Notification.countDocuments({ userId, isRead: false });
+        // Fetch all notifications sorted by creation date
+        const notifications = await Notification.find().sort({ createdAt: -1 });
+
+        // Optionally, count unread notifications for the admin's reference
+        const unreadCount = await Notification.countDocuments({ isRead: false });
 
         res.status(200).json({ notifications, unreadCount });
     } catch (error) {
@@ -37,11 +51,9 @@ router.get('/:userId', async (req, res) => {
 });
 
 // Mark all notifications as read
-router.put('/markAllRead/:userId', async (req, res) => {
-    const { userId } = req.params;
-
+router.put('/markAllRead', async (req, res) => {
     try {
-        await Notification.updateMany({ userId, isRead: false }, { $set: { isRead: true } });
+        await Notification.updateMany({ isRead: false }, { $set: { isRead: true } });
         res.status(200).json({ message: 'All notifications marked as read', unreadCount: 0 });
     } catch (error) {
         res.status(500).json({ message: 'Error marking notifications as read', error });

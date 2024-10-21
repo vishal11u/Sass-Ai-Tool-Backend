@@ -32,20 +32,20 @@ const aiToolSchema = new mongoose.Schema({
         trim: true
     },
     pricing: {
-        type: String, // Free, Paid, Freemium
+        type: String, 
         required: true,
         trim: true
     },
     keyFeatures: {
-        type: [String], // Array of features
+        type: [String], 
         required: true
     },
     howToUse: {
-        type: String, // Use case or guide text
+        type: String, 
         required: true
     },
     videoUrl: {
-        type: String, // Optional video tutorial link
+        type: String, 
         trim: true
     },
     createdAt: {
