@@ -13,7 +13,7 @@ const contactSchema = new mongoose.Schema({
     },
     country: {
         type: String,
-        required: true,
+        required: false,
     },
     mobile: {
         type: String,

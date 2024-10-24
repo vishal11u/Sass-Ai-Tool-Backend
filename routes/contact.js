@@ -31,7 +31,7 @@ router.post('/submit', async (req, res) => {
 });
 
 // Get all contacts
-router.get('/', async (req, res) => {
+router.get('/all-contacts', async (req, res) => {
     try {
         const contacts = await Contact.find();
         res.status(200).json(contacts);

@@ -84,14 +84,12 @@ router.post('/login', async (req, res) => {
 
 router.get('/users/list', async (req, res) => {
     try {
-        // Fetch all notifications of type 'signup' or 'login'
         const notifications = await Notification.find({
             type: { $in: ['signup', 'login'] }
         }).populate('userId', 'username role lastLoginDate');
 
-        // Structure the response data
         const userList = notifications.map(notification => ({
-            id: notification.userId._id, // Include the user ID here
+            id: notification.userId._id,
             username: notification.userId.username,
             role: notification.userId.role,
             lastLoginDate: notification.userId.lastLoginDate,
