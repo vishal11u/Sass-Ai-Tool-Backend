@@ -18,7 +18,7 @@ router.post('/save', authenticateToken, authorizeRoles('superAdmin', 'user'), as
         });
         await notification.save();
 
-        res.status(201).json({ message: 'Contact details submitted successfully!', newTool: newTool });
+        res.status(201).json({ message: 'Ai toll Create successfully!', newTool: newTool });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -46,7 +46,7 @@ router.get('/getbyId/:id', authenticateToken, authorizeRoles('superAdmin', 'user
 });
 
 // Update an AI tool by ID (only accessible by 'superAdmin')
-router.put('/update/:id', authenticateToken, authorizeRoles('superAdmin', 'user'), async (req, res) => {
+router.put('/update/:id', authenticateToken, authorizeRoles('superAdmin'), async (req, res) => {
     try {
         const updatedTool = await AITool.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
         if (!updatedTool) return res.status(404).json({ error: 'Tool not found' });

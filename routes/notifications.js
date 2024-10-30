@@ -22,20 +22,6 @@ router.post('/create', async (req, res) => {
     }
 });
 
-// Get all notifications with unread count
-// router.get('/:userId', async (req, res) => {
-//     const { userId } = req.params;
-
-//     try {
-//         const notifications = await Notification.find({ userId }).sort({ createdAt: -1 });
-//         const unreadCount = await Notification.countDocuments({ userId, isRead: false });
-
-//         res.status(200).json({ notifications, unreadCount });
-//     } catch (error) {
-//         res.status(500).json({ message: 'Error fetching notifications', error });
-//     }
-// });
-
 router.get('/admin/all', async (req, res) => {
     try {
         // Fetch all notifications sorted by creation date
