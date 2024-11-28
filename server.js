@@ -24,6 +24,9 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
+app.use("/", (req, res) => {
+  res.send("Welcome to the AI tool");
+});
 app.use("/aitools", AiTool);
 app.use("/auth", authRoutes);
 app.use("/contact", contactRoute);
