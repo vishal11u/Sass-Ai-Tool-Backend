@@ -17,16 +17,10 @@ app.use(bodyParser.json());
 app.use(cors());
 
 mongoose
-  .connect(process.env.MONGO_URI, {
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
-app.use("/", (req, res) => {
-  res.send("Welcome to the AI tool");
-});
 app.use("/aitools", AiTool);
 app.use("/auth", authRoutes);
 app.use("/contact", contactRoute);

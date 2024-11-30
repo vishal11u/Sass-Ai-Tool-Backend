@@ -34,8 +34,8 @@ router.post(
 // Get all AI tools (accessible by both 'superAdmin' and 'user')
 router.get(
   "/",
-  authenticateToken,
-  authorizeRoles("superAdmin", "user"),
+  // authenticateToken,
+  // authorizeRoles("superAdmin", "user"),
   async (req, res) => {
     try {
       const tools = await AITool.find();
@@ -103,8 +103,8 @@ router.delete(
 // Search Route (accessible by both 'superAdmin' and 'user')
 router.get(
   "/search",
-  authenticateToken,
-  authorizeRoles("superAdmin", "user"),
+  // authenticateToken,
+  // authorizeRoles("superAdmin", "user"),
   async (req, res) => {
     const { query, page = 1, limit = 10 } = req.query;
 
@@ -138,12 +138,10 @@ router.get(
         results,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          message: "Error fetching search results",
-          error: error.message,
-        });
+      res.status(500).json({
+        message: "Error fetching search results",
+        error: error.message,
+      });
     }
   }
 );
@@ -151,8 +149,8 @@ router.get(
 // Filter Route (accessible by both 'superAdmin' and 'user')
 router.get(
   "/filter",
-  authenticateToken,
-  authorizeRoles("superAdmin", "user"),
+  // authenticateToken,
+  // authorizeRoles("superAdmin", "user"),
   async (req, res) => {
     const { category } = req.query;
 
@@ -175,12 +173,10 @@ router.get(
 
       res.status(200).json(filteredTools);
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          message: "Error fetching filtered tools",
-          error: error.message,
-        });
+      res.status(500).json({
+        message: "Error fetching filtered tools",
+        error: error.message,
+      });
     }
   }
 );
