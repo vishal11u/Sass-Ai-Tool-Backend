@@ -3,6 +3,7 @@ const AITool = require("../models/AiToolCard");
 const router = express.Router();
 const Notification = require("../models/Notification");
 const { authenticateToken, authorizeRoles } = require("../middleware/auth");
+const mongoose = require("mongoose");
 
 // Create a new AI tool (only accessible by 'superAdmin')
 router.post(
@@ -46,15 +47,24 @@ router.get(
   }
 );
 
-// Get an AI tool by ID (accessible by both 'superAdmin' and 'user')
 router.get(
   "/getbyId/:id",
-  authenticateToken,
-  authorizeRoles("superAdmin", "user"),
+  // authenticateToken,
+  // authorizeRoles("superAdmin", "user"),
   async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid ID format" });
+    }
+
     try {
-      const tool = await AITool.findById(req.params.id);
-      if (!tool) return res.status(404).json({ error: "Tool not found" });
+      const tool = await AITool.findById(id);
+
+      if (!tool) {
+        return res.status(404).json({ error: "Tool not found" });
+      }
+
       res.status(200).json(tool);
     } catch (error) {
       res.status(500).json({ error: error.message });
