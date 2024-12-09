@@ -16,19 +16,25 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+// MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
+// Routes
 app.use("/aitools", AiTool);
 app.use("/auth", authRoutes);
 app.use("/contact", contactRoute);
 app.use("/notifications", notificationRoutes);
 app.use("/dashboard", dashboard);
 
-const PORT = process.env.PORT || 5000;
+// Export the app for Vercel
+module.exports = app;
+
+// Start server in local development
 if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
