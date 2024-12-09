@@ -16,6 +16,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+const handler = (req, res) => {
+  app(req, res);
+};
+
 // MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI)
@@ -34,6 +38,7 @@ app.use("/dashboard", dashboard);
 
 // Export the app for Vercel
 module.exports = app;
+module.exports = handler;
 
 // Start server in local development
 if (require.main === module) {
