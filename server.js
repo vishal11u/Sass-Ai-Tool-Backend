@@ -23,6 +23,9 @@ mongoose
   .catch((err) => console.error(err));
 
 // Routes
+app.get("/", (req, res) => {
+  res.send("Hello, world! The API is working.");
+});
 app.use("/aitools", AiTool);
 app.use("/auth", authRoutes);
 app.use("/contact", contactRoute);
